@@ -1,7 +1,8 @@
 import './App.css';
-import { Header } from './components/Header';
-import { NavBar } from './components/NavBar';
-import { Profile } from './components/Profile';
+import { Header } from './components/header/Header';
+import { NavBar } from './components/navBar/NavBar';
+import { Profile } from './components/profile/Profile';
+import { Dialogs } from './components/dialogs/Dialogs';
 
 
 function App() {
@@ -9,7 +10,10 @@ function App() {
     <div className={'app-wrapper'}>
       <Header />
       <NavBar />
-      <Profile />
+      <div className={'app-wrapper-content'}>
+        {/* <Profile /> */}
+        <Dialogs />
+      </div>
     </div>
   );
 }

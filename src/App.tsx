@@ -3,7 +3,7 @@ import { Header } from './components/header/Header';
 import { NavBar } from './components/navBar/NavBar';
 import { Profile } from './components/profile/Profile';
 import { Dialogs } from './components/dialogs/Dialogs';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import React from 'react';
 
 
@@ -37,6 +37,7 @@ type AppPropsType = {
       dialogs: DialogsType
     }
   }
+  addPost: (postM: string) => void
 }
 
 const App: React.FC<AppPropsType> = (
@@ -46,24 +47,23 @@ const App: React.FC<AppPropsType> = (
     },
     state: {
       dialogsPage
-    }
+    },
+    addPost
   }
 ) => {
   return (
-    <BrowserRouter>
-      <div className={'app-wrapper'}>
-        <Header />
-        <NavBar />
-        <div className={'app-wrapper-content'}>
-          <Routes>
-            <Route path='/dialogs' element={
-              <Dialogs state={dialogsPage} />
-            }/>
-            <Route path='/profile' element={<Profile state={profilePage}/>} />
-          </Routes>
-        </div>
+    <div className={'app-wrapper'}>
+      <Header />
+      <NavBar />
+      <div className={'app-wrapper-content'}>
+        <Routes>
+          <Route path='/dialogs' element={
+            <Dialogs state={dialogsPage} />
+          }/>
+          <Route path='/profile' element={<Profile state={profilePage} addPost={addPost}/>} />
+        </Routes>
       </div>
-    </BrowserRouter>
+    </div>
   );
 }
 

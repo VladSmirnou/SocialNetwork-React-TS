@@ -20,6 +20,15 @@ const messages = [
   {id: 3, message: 'Yo'}
 ];
 
+export const addPost = (postMessage: string) => {
+  const newPost = {
+    id: 5, message: postMessage, likesCount: 0
+  }
+  debugger
+  state.profilePage.posts.push(newPost);
+}
+
+
 export const state = {
   profilePage: {
     posts,

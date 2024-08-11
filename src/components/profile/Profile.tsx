@@ -9,19 +9,21 @@ type ProfilePropsType = {
   state: {
     posts: PostsType
   }
+  addPost: (postM: string) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (
   {
     state: {
       posts
-    }
+    },
+    addPost
   }
 ) => {
   return (
     <div className={s.content}>
       <ProfileInfo />
-      <MyPosts posts={posts}/>
+      <MyPosts posts={posts} addPost={addPost}/>
     </div>  
   )
 }

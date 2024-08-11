@@ -2,14 +2,17 @@ import { Post } from './post/Post';
 import s from './MyPosts.module.css';
 
 
-export const MyPosts = () => {
+type PostType = {
+  id: number,
+  message: string,
+  likesCount: number
+}
 
-  const posts = [
-    {id: 1, message: 'first', likesCount: 12},
-    {id: 2, message: 'second', likesCount: 11},
-  ]
+type MyPostsPropsType = {
+  posts: Array<PostType>
+}
 
-
+export const MyPosts = ({posts}: MyPostsPropsType) => {
   const postElements = posts.map(({message, likesCount}) => {
     return <Post message={message} likes={likesCount} />
   })

@@ -1,7 +1,6 @@
 import { Post } from './post/Post';
 import s from './MyPosts.module.css';
-import { useRef } from 'react';
-
+import { ChangeEvent } from 'react';
 
 type PostType = {
   id: number
@@ -11,21 +10,24 @@ type PostType = {
 
 type MyPostsPropsType = {
   posts: Array<PostType>
-  addPost: (postM: string) => void
+  newPostText: string
+  dispatch: (action: {[key: string]: any}) => void
 }
 
-export const MyPosts = ({posts, addPost}: MyPostsPropsType) => {
+export const MyPosts = ({posts, newPostText, dispatch}: MyPostsPropsType) => {
   const postElements = posts.map(({message, likesCount}) => {
     return <Post message={message} likes={likesCount} />
   })
 
-  const newPostElement = useRef<HTMLTextAreaElement | null>(null);
-
   const addPostHandler = () => {
-    const text = newPostElement.current?.value;
-    if (text) {
-      addPost(text);
-    }
+    dispatch({type: 'ADD-POST'});
+  }
+
+  const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    dispatch({
+      type: 'UPDATE-NEW-POST-TEXT',
+      newText: e.currentTarget.value
+    });
   }
 
   return (
@@ -33,7 +35,7 @@ export const MyPosts = ({posts, addPost}: MyPostsPropsType) => {
       <h3>My posts</h3>
       <div>
         <div>
-          <textarea ref={newPostElement}></textarea>
+          <textarea value={newPostText} onChange={onPostChange}/> 
           <div>
             <button onClick={addPostHandler}>Add post</button>
           </div>

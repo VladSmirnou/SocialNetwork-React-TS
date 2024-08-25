@@ -6,24 +6,30 @@ import React from 'react';
 
 
 type ProfilePropsType = {
-  state: {
+  profilePage: {
     posts: PostsType
   }
-  addPost: (postM: string) => void
+  newPostText: string
+  dispatch: (action: {[key: string]: any}) => void
 }
 
 export const Profile: React.FC<ProfilePropsType> = (
   {
-    state: {
+    profilePage: {
       posts
     },
-    addPost
+    newPostText,
+    dispatch
   }
 ) => {
   return (
     <div className={s.content}>
       <ProfileInfo />
-      <MyPosts posts={posts} addPost={addPost}/>
+      <MyPosts
+        dispatch={dispatch}
+        posts={posts}
+        newPostText={newPostText}
+      />
     </div>  
   )
 }

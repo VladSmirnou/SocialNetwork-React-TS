@@ -6,7 +6,6 @@ import { Dialogs } from './components/dialogs/Dialogs';
 import { Route, Routes } from 'react-router-dom';
 import React from 'react';
 
-
 type PostType = {
   id: number
   message: string
@@ -31,13 +30,14 @@ type AppPropsType = {
   state: {
     profilePage: {
       posts: PostsType
+      newPostText: string
     }
     dialogsPage: {
       messages: MessagesType
       dialogs: DialogsType
     }
   }
-  addPost: (postM: string) => void
+  dispatch: (action: {[key: string]: any}) => void
 }
 
 const App: React.FC<AppPropsType> = (
@@ -48,7 +48,7 @@ const App: React.FC<AppPropsType> = (
     state: {
       dialogsPage
     },
-    addPost
+    dispatch
   }
 ) => {
   return (
@@ -60,7 +60,13 @@ const App: React.FC<AppPropsType> = (
           <Route path='/dialogs' element={
             <Dialogs state={dialogsPage} />
           }/>
-          <Route path='/profile' element={<Profile state={profilePage} addPost={addPost}/>} />
+          <Route path='/profile' element={
+            <Profile
+              profilePage={profilePage}
+              dispatch={dispatch}
+              newPostText={profilePage.newPostText}
+            />
+          } />
         </Routes>
       </div>
     </div>

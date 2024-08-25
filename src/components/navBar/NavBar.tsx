@@ -8,7 +8,6 @@ const classFunc = (
 
 
 export const NavBar = () => {
-  console.log(s)
   return (
     <nav className={s.nav}>
       <div className={s.item}>

@@ -1,3 +1,8 @@
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const ADD_NEW_MESSAGE = 'ADD-NEW-MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE-NEW-MESSAGE-TEXT';
+
 export const store = {
   _state: {
     profilePage: {
@@ -22,7 +27,8 @@ export const store = {
         {id: 3, message: 'Yo'},
         {id: 3, message: 'Yo'},
         {id: 3, message: 'Yo'}
-      ]
+      ],
+      newMessageText: ''
     }
   },
   _renderEntireTree: (st: any) => {},
@@ -40,16 +46,43 @@ export const store = {
   },
 
   dispatch(action: {[key: string]: any}) {
-    if (action.type === 'ADD-POST') {
+    if (action.type === ADD_POST) {
       const newPost = {
         id: 5, message: this._state.profilePage.newPostText, likesCount: 0
       }
       this._state.profilePage.posts.push(newPost);
       this._state.profilePage.newPostText = '';
       this._callSubscriber(this._state);
-    } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+    } else if (action.type === UPDATE_NEW_POST_TEXT) {
       this._state.profilePage.newPostText = action.newText;
+      this._callSubscriber(this._state);
+    } else if (action.type === ADD_NEW_MESSAGE) {
+      this._state.dialogsPage.messages.push(
+        {id: 4, message: this._state.dialogsPage.newMessageText}
+      );
+      this._state.dialogsPage.newMessageText = '';
+      this._callSubscriber(this._state);
+    } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+      this._state.dialogsPage.newMessageText = action.newMessageText
       this._callSubscriber(this._state);
     }
   }
 }
+
+export const addPostCreator = () => ({
+  type: ADD_POST
+})
+
+export const updateNewPostTextCreator = (text: string) => ({
+  type: UPDATE_NEW_POST_TEXT,
+  newText: text
+})
+
+export const addNewMessageCreator = () => ({
+  type: ADD_NEW_MESSAGE
+})
+
+export const updateNewMessageCreator = (text: string) => ({
+  type: UPDATE_NEW_MESSAGE_TEXT,
+  newMessageText: text
+})

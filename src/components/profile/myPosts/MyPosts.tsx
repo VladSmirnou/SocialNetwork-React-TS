@@ -1,6 +1,7 @@
 import { Post } from './post/Post';
 import s from './MyPosts.module.css';
 import { ChangeEvent } from 'react';
+import { addPostCreator, updateNewPostTextCreator } from '../../../redux/state';
 
 type PostType = {
   id: number
@@ -20,14 +21,13 @@ export const MyPosts = ({posts, newPostText, dispatch}: MyPostsPropsType) => {
   })
 
   const addPostHandler = () => {
-    dispatch({type: 'ADD-POST'});
+    dispatch(addPostCreator());
   }
 
   const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch({
-      type: 'UPDATE-NEW-POST-TEXT',
-      newText: e.currentTarget.value
-    });
+    dispatch(
+      updateNewPostTextCreator(e.currentTarget.value)
+    );
   }
 
   return (

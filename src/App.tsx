@@ -35,6 +35,7 @@ type AppPropsType = {
     dialogsPage: {
       messages: MessagesType
       dialogs: DialogsType
+      newMessageText: string
     }
   }
   dispatch: (action: {[key: string]: any}) => void
@@ -58,7 +59,11 @@ const App: React.FC<AppPropsType> = (
       <div className={'app-wrapper-content'}>
         <Routes>
           <Route path='/dialogs' element={
-            <Dialogs state={dialogsPage} />
+            <Dialogs
+              state={dialogsPage}
+              dispatch={dispatch}
+              newMessageText={dialogsPage.newMessageText}
+            />
           }/>
           <Route path='/profile' element={
             <Profile

@@ -6,7 +6,7 @@ import React, { ChangeEvent } from 'react';
 import {
   addNewMessageCreator,
   updateNewMessageCreator
-} from '../../redux/state';
+} from '../../redux/dialogs-reducer';
 
 type DialogsPropsType = {
   state: {

@@ -1,7 +1,7 @@
 import { Post } from './post/Post';
 import s from './MyPosts.module.css';
 import { ChangeEvent } from 'react';
-import { addPostCreator, updateNewPostTextCreator } from '../../../redux/state';
+import { addPostCreator, updateNewPostTextCreator } from '../../../redux/profile-reducer';
 
 type PostType = {
   id: number

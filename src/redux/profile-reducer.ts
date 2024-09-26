@@ -1,7 +1,28 @@
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
-const profileReducer = (state: any, action: any) => {
+const initialState = {
+   posts: [
+     {id: 1, message: 'first', likesCount: 12},
+     {id: 2, message: 'second', likesCount: 11},
+   ],
+   newPostText: ''
+}
+
+type PostType = {
+    id: number,
+    message: string,
+    likesCount: number
+}
+
+export type PostsType = Array<PostType>;
+
+type ProfilerReducerStateType = {
+    posts: PostsType
+    newPostText: string
+}
+
+const profileReducer = (state: ProfilerReducerStateType = initialState, action: any) => {
     switch (action.type) {
         case ADD_POST: {
             const newPost = {

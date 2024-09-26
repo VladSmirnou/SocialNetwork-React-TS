@@ -1,48 +1,33 @@
+import { ChangeEvent } from 'react';
+import { DialogsReducerStateType } from '../../redux/dialogs-reducer';
+import { DialogItem } from './dialogItem/DialogItem';
 import s from './Dialogs.module.css';
 import { Message } from './message/Message';
-import { DialogItem } from './dialogItem/DialogItem';
-import { DialogsType, MessagesType } from '../../App';
-import React, { ChangeEvent } from 'react';
-import {
-  addNewMessageCreator,
-  updateNewMessageCreator
-} from '../../redux/dialogs-reducer';
 
 type DialogsPropsType = {
-  state: {
-    messages: MessagesType
-    dialogs: DialogsType
-  },
-  dispatch: (action: {[key: string]: any}) => void
-  newMessageText: string
+  updateNewMessageBody: (text: string) => void
+  addNewMessage: () => void
+  dialogsPage: DialogsReducerStateType
 }
 
-export const Dialogs: React.FC<DialogsPropsType> = (
-  {
-    state: {
-      messages,
-      dialogs
-    }, 
-    dispatch,
-    newMessageText
-  }
-) => {
-  const dialogElements = dialogs.map(({id, name}) => {
+export const Dialogs = ({ 
+  updateNewMessageBody,
+  addNewMessage,
+  dialogsPage
+}: DialogsPropsType) => {
+
+  const dialogElements = dialogsPage.dialogs.map(({id, name}) => {
     return <DialogItem name={name} id={id}/>
   })
 
-  const messageElements = messages.map(({message}) => {
+  const messageElements = dialogsPage.messages.map(({message}) => {
     return <Message message={message} />
   })
 
-  const onClickHandler = () => {
-    dispatch(addNewMessageCreator())
-  }
+  const onClickHandler = () => addNewMessage();
 
   const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(
-      updateNewMessageCreator(e.currentTarget.value)
-    );
+    updateNewMessageBody(e.currentTarget.value)
   }
 
   return (
@@ -56,7 +41,7 @@ export const Dialogs: React.FC<DialogsPropsType> = (
           <div>
             <textarea
               placeholder={'type a message'}
-              value={newMessageText}
+              value={dialogsPage.newMessageText}
               onChange={onChangeHandler}>
             </textarea>
           </div>

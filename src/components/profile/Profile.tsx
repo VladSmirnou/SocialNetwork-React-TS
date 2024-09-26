@@ -1,35 +1,12 @@
 import s from './Profile.module.css';
-import { MyPosts } from './myPosts/MyPosts';
 import { ProfileInfo } from './profileInfo/ProfileInfo';
-import { PostsType } from '../../App';
-import React from 'react';
+import { MyPostsContainer } from './myPosts/MyPostsContainer';
 
-
-type ProfilePropsType = {
-  profilePage: {
-    posts: PostsType
-  }
-  newPostText: string
-  dispatch: (action: {[key: string]: any}) => void
-}
-
-export const Profile: React.FC<ProfilePropsType> = (
-  {
-    profilePage: {
-      posts
-    },
-    newPostText,
-    dispatch
-  }
-) => {
+export const Profile = () => {
   return (
     <div className={s.content}>
       <ProfileInfo />
-      <MyPosts
-        dispatch={dispatch}
-        posts={posts}
-        newPostText={newPostText}
-      />
+      <MyPostsContainer />
     </div>  
   )
 }

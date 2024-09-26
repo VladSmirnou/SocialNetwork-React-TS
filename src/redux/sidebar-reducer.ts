@@ -1,3 +1,3 @@
-export const sidebarReducer = (state: any, action: any) => {
+export const sidebarReducer = (state: any = {govno: '1'}, action: any) => {
     return state;
 }

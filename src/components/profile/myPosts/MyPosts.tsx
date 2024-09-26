@@ -10,24 +10,28 @@ type PostType = {
 }
 
 type MyPostsPropsType = {
+  updateNewPostText: (text: string) => void
+  addPost: () => void
   posts: Array<PostType>
   newPostText: string
-  dispatch: (action: {[key: string]: any}) => void
 }
 
-export const MyPosts = ({posts, newPostText, dispatch}: MyPostsPropsType) => {
-  const postElements = posts.map(({message, likesCount}) => {
-    return <Post message={message} likes={likesCount} />
+export const MyPosts = ({
+  updateNewPostText,
+  addPost,
+  posts,
+  newPostText
+}: MyPostsPropsType) => {
+  const postElements = posts.map(({message, likesCount}, idx) => {
+    return <Post key={idx} message={message} likes={likesCount} />
   })
 
   const addPostHandler = () => {
-    dispatch(addPostCreator());
+    addPost();
   }
 
   const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    dispatch(
-      updateNewPostTextCreator(e.currentTarget.value)
-    );
+    updateNewPostText(e.currentTarget.value);
   }
 
   return (
